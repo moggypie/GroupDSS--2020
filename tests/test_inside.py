@@ -88,3 +88,4 @@ def test_delete(client, auth, app):
             post = db.execute('SELECT * FROM post WHERE id = 1').fetchone()
             assert post is None
 
+# ref https://flask.palletsprojects.com/en/1.1.x/

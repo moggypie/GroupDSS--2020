@@ -27,3 +27,5 @@ def test_get_close_db(app):
         result = runner.invoke(args=['init-db'])
         assert 'Initialized' in result.output
         assert Recorder.called
+
+        # ref https://flask.palletsprojects.com/en/1.1.x/
