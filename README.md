@@ -8,18 +8,18 @@
 
 PyCharm structure
 
-├── flaskr/
+├── forum/
 │   ├── __init__.py
 │   ├── db.py
 │   ├── schema.sql
 │   ├── auth.py
-│   ├── blog.py
+│   ├── inside.py
 │   ├── templates/
 │   │   ├── base.html
 │   │   ├── auth/
 │   │   │   ├── login.html
 │   │   │   └── register.html
-│   │   └── blog/
+│   │   └── inside/
 │   │       ├── create.html
 │   │       ├── index.html
 │   │       └── update.html
@@ -31,7 +31,7 @@ PyCharm structure
 │   ├── test_factory.py
 │   ├── test_db.py
 │   ├── test_auth.py
-│   └── test_blog.py
+│   └── test_inside.py
 ├── venv/
 ├── setup.py
 └── MANIFEST.in
