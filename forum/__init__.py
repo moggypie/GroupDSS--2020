@@ -24,6 +24,16 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+        # NEW -- defence against session hijacking ----
+        app.config.update(
+            PERMANENT_SESSION_LIFETIME=300
+        )
+        app.config.update(
+         #   SESSION_COOKIE_SECURE=True, # limits to https traffic only
+            SESSION_COOKIE_HTTPONLY=True,
+            SESSION_COOKIE_SAMESITE='Lax',
+        )
+
     # test page that says hello
     @app.route('/hello')
     def hello():
@@ -46,3 +56,4 @@ def create_app(test_config=None):
     return app
 
 # ref https://flask.palletsprojects.com/en/1.1.x/
+

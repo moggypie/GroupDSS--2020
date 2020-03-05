@@ -1,4 +1,10 @@
 <!doctype html>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none'; ">
+<meta http-equiv="Strict-Transport-Security" content="max-age=600; includeSubDomains; ">
+<meta http-equiv="X-Content-Type-Options" content="nosniff" >
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN" >
+<meta http-equiv="set_cookie" content="'username'; 'flask'; secure=True; httponly=True; samesite='Lax'; " >
+<meta http-equiv="X-XSS-Protection" content="1; mode=block" >
 <title>{% block title %}{% endblock %} - Forum</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
@@ -24,3 +30,4 @@
 </section>
 
 <!-- ref https://flask.palletsprojects.com/en/1.1.x/ -->
+

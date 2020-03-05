@@ -1,15 +1,14 @@
 import functools
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
+    Blueprint, flash, g, redirect, render_template, request, session, url_for)
+
+# two hashing methods used...
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from forum.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
-
-
 
 # registering...
 @bp.route('/register', methods=('GET', 'POST'))
@@ -25,14 +24,14 @@ def register():
         elif not password:
             error = 'Password is required!.'
         elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
+                'SELECT id FROM user WHERE username = ?', (username,)
         ).fetchone() is not None:
             error = 'User {} is already registered.'.format(username)
 
         if error is None:
             db.execute(
                 'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
+                (username, generate_password_hash(password))  # problem
             )
             db.commit()
             return redirect(url_for('auth.login'))
@@ -40,6 +39,7 @@ def register():
         flash(error)
 
     return render_template('auth/register.html')
+
 
 # login ...
 @bp.route('/login', methods=('GET', 'POST'))
@@ -61,12 +61,12 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
+            session.permanent = True  # !! added to defend against session hijacking
             return redirect(url_for('index'))
 
         flash(error)
 
     return render_template('auth/login.html')
-
 
 
 @bp.before_app_request
@@ -86,6 +86,7 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
+
 # require auth for other views
 def login_required(view):
     @functools.wraps(view)
@@ -96,6 +97,4 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
-
-# ref https://flask.palletsprojects.com/en/1.1.x/
 
